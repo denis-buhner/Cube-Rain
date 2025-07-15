@@ -23,7 +23,6 @@ public class Spawner : MonoBehaviour
     private void OnEnable()
     {
         _spawnCoroutine = StartCoroutine(SpawnCube());
-        
     }
 
     private void OnDisable()

@@ -12,8 +12,14 @@ public class ObjectPool : MonoBehaviour
     {
         _pool = new Queue<Cube>();
     }
+
     public Cube GetCube()
     {
+        if (_pool == null)
+        {
+            _pool = new Queue<Cube>();
+        }
+
         if(_pool.Count == 0)
         {
             Cube cube = Instantiate(_prefab);

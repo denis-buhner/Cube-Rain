@@ -1068,9 +1068,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnDelay: 0.1
   _childCount: 100
-  _prefab: {fileID: -3354106402938675403, guid: 5368e6ea47877324db0f12e465ff1f6b, type: 3}
+  _prefab: {fileID: 246737572486123215, guid: 5368e6ea47877324db0f12e465ff1f6b, type: 3}
   _spawnRadius: 10
-  _pooler: {fileID: 0}
+  _pooler: {fileID: 2048414654}
 --- !u!4 &2048414653
 Transform:
   m_ObjectHideFlags: 0
@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 2048414653}
-  _prefab: {fileID: -3354106402938675403, guid: 5368e6ea47877324db0f12e465ff1f6b, type: 3}
+  _prefab: {fileID: 246737572486123215, guid: 5368e6ea47877324db0f12e465ff1f6b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
