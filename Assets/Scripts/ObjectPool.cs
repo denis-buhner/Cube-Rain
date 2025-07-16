@@ -6,20 +6,10 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private Transform _container;
     [SerializeField] private Cube _prefab;
 
-    private Queue<Cube> _pool;
-
-    public void Awake()
-    {
-        _pool = new Queue<Cube>();
-    }
+    private Queue<Cube> _pool = new Queue<Cube>();
 
     public Cube GetCube()
     {
-        if (_pool == null)
-        {
-            _pool = new Queue<Cube>();
-        }
-
         if(_pool.Count == 0)
         {
             Cube cube = Instantiate(_prefab);

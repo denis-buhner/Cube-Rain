@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
 
     private Coroutine _spawnCoroutine;
     private Action<Cube> _deleteCubeAction;
+
     private Vector3 _spawnCentre => transform.position;
 
     private void Awake()
@@ -30,11 +31,18 @@ public class Spawner : MonoBehaviour
         _spawnCoroutine = null;
     }   
 
+    private void DespawnCube(Cube cube)
+    {
+        cube.Died -= DespawnCube;
+
+        _pooler.ReturnObjectToPool(cube);
+    }
+
     private IEnumerator SpawnCube()
     {
         WaitForSeconds waitForSeconds = new WaitForSeconds(_spawnDelay);
 
-        for (int i = 0;  i < _childCount; i++)
+        for (int i = 0; i < _childCount; i++)
         {
             Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * _spawnRadius;
             Vector3 spawnPosition = new Vector3(_spawnCentre.x + randomOffset.x, _spawnCentre.y, _spawnCentre.z + randomOffset.y);
@@ -43,16 +51,9 @@ public class Spawner : MonoBehaviour
             Cube cube = _pooler.GetCube();
             cube.transform.position = spawnPosition;
             cube.transform.rotation = randomRotation;
-            cube.OnDie += DespawnCube;
+            cube.Died += DespawnCube;
 
             yield return waitForSeconds;
         }
-    }
-
-    private void DespawnCube(Cube cube)
-    {
-        cube.OnDie -= DespawnCube;
-
-        _pooler.ReturnObjectToPool(cube);
     }
 }

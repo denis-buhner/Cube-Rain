@@ -14,12 +14,7 @@ public class Cube : MonoBehaviour
     private Color _defaultColor;
     private Coroutine _lifeCycleCoroutine = null;
 
-    public event Action<Cube> OnDie;
-
-    private void ResetState()
-    {
-        _renderer.material.color = _defaultColor;
-    }
+    public event Action<Cube> Died;
 
     private void Awake()
     {
@@ -34,8 +29,8 @@ public class Cube : MonoBehaviour
         if (other.GetComponent<Border>() == null)
             return;
 
-        if(_lifeCycleCoroutine == null)
-            _lifeCycleCoroutine = StartCoroutine(CubeLifeCycle());
+        if (_lifeCycleCoroutine == null)
+            _lifeCycleCoroutine = StartCoroutine(RunLifeCycle());
     }
 
     private void OnDisable()
@@ -47,13 +42,18 @@ public class Cube : MonoBehaviour
         }
     }
 
-    private IEnumerator CubeLifeCycle()
+    private void ResetState()
+    {
+        _renderer.material.color = _defaultColor;
+    }
+
+    private IEnumerator RunLifeCycle()
     {
         _colorChanger.SetRandomColor(gameObject);
 
         yield return new WaitForSeconds(UnityEngine.Random.Range(_minLifeTime, _maxLifeTime));
 
         ResetState();
-        OnDie?.Invoke(this);
+        Died?.Invoke(this);
     }
 }
